@@ -1,4 +1,4 @@
-package guru.springframework.recipe;
+package guru.springframework.recipe.domain;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
