@@ -27,14 +27,23 @@
                 <div class="card card-primary">
                     <div class="card-header">
                     	<!--/*@thymesVar id="recipe" type="guru.springframework.domain.Recipe"*/-->
-                        <h1 class="card-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1 class="panel-title" th:text="${recipe.description}">Recipe Description Here!</h1>
+                            </div>
+                             <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.id} + '/image'}" role="button"><img th:src="'data:image/gif;base64,' + ${recipe.image}"</a>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
                                 <h5>Categories:</h5>
                             </div>
-                            <div class="col-md-9">
+                            <div class="col-md-3">
                                 <ul>
                                     <li th:each="category : ${recipe.categories}" th:text="${category.description}">cat one</li>
                                 </ul>
