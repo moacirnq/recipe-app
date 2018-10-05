@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import guru.springframework.recipe.commands.RecipeCommand;
+import guru.springframework.recipe.exceptions.NotFoundException;
 import guru.springframework.recipe.services.ImageService;
 import guru.springframework.recipe.services.RecipeService;
 
@@ -32,7 +33,7 @@ public class ImageController {
 	}
 	
     @GetMapping("recipe/{id}/image")
-    public String showUploadForm(@PathVariable String id, Model model){
+    public String showUploadForm(@PathVariable String id, Model model) throws NumberFormatException, NotFoundException{
         model.addAttribute("recipe", recipeService.findCommandById(Long.valueOf(id)));
 
         return "recipe/imageuploadform";
@@ -47,8 +48,8 @@ public class ImageController {
     }
     
     @GetMapping("/recipe/{id}/recipeimage")
-    public void renderImageFromDB(@PathVariable String id, HttpServletResponse response) throws IOException {
-    	RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(id));
+    public void renderImageFromDB(@PathVariable Long id, HttpServletResponse response) throws IOException, NumberFormatException, NotFoundException {
+    	RecipeCommand recipeCommand = recipeService.findCommandById(id);
     	
     	byte[] byteArray = new byte[recipeCommand.getImage().length];
     	Byte[] image = recipeCommand.getImage();

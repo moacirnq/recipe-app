@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import guru.springframework.recipe.commands.IngredientCommand;
 import guru.springframework.recipe.commands.RecipeCommand;
 import guru.springframework.recipe.commands.UnitOfMeasureCommand;
+import guru.springframework.recipe.exceptions.NotFoundException;
 import guru.springframework.recipe.services.IngredientService;
 import guru.springframework.recipe.services.RecipeService;
 import guru.springframework.recipe.services.UnitOfMeasureService;
@@ -35,7 +36,7 @@ public class IngredientController {
 	}
 
 	@RequestMapping("recipe/{recipeId}/ingredients")
-	public String getIngredientList(@PathVariable String recipeId, Model model) {
+	public String getIngredientList(@PathVariable String recipeId, Model model) throws NumberFormatException, NotFoundException {
 		RecipeCommand command = recipeService.findCommandById(Long.valueOf(recipeId));
 		model.addAttribute("recipe", command);
 		
@@ -65,7 +66,7 @@ public class IngredientController {
     }
     
     @RequestMapping("recipe/{recipeId}/ingredient/new")
-    public String newForm(@PathVariable String recipeId, Model model) {
+    public String newForm(@PathVariable String recipeId, Model model) throws NumberFormatException, NotFoundException {
     	
     	RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
     	
